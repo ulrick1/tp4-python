@@ -27,5 +27,5 @@ async def on_message(message):
     if message.content.lower() == "quoi":
         await message.channel.send("de neuf")
 
-client.run("OTU5MzUwNDgyNzU1ODEzNDE2.Ykamwg._E608jgq3sLcsmIz1p713neXkF4")
+client.run("OTY2OTU3ODA0OTEwOTU2NTk0.YmJToQ.JdsY3yOruXowgjJZaXXUTJrVTTg")
 
