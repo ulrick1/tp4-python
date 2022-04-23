@@ -1,3 +1,4 @@
+from multiprocessing.connection import Client
 import discord
 from click import pass_context
 from discord.ext import commands
@@ -11,7 +12,7 @@ import json
 class Botpoo(Bot):
 
 	def __init__(self, config):
-		super().__init__(str(config['préfixe']))
+		super().__init__(command_prefix='préfixe')
 		
 		self.add_cog(commandes(self))
 		self.add_cog(Log(self, config))
@@ -20,7 +21,7 @@ class Botpoo(Bot):
 		print(f'{self.user} est connecté(e) a Discord!')
 
 
-def get_args() -> Namespace:
+def parse_args() -> Namespace:
     parser = ArgumentParser()
     parser.add_argument(
         "-c", "--config", help="config file", required=True, dest="config"
@@ -36,7 +37,7 @@ def get_config(config_file: str)-> dict:
     return config
 
 def main():
-	args = get_args()
+	args = parse_args()
 	config = json.load(open(args.config))
 	Client = Botpoo(config)
 	Client.run(str(config['token']))
@@ -55,7 +56,7 @@ class commandes(commands.Cog):
 		await ctx.send("Hello :)")
 
 
-	@commands.command(name="help", pass_context=True)
+	@commands.command(name="Help", pass_context=True)
 	async def HELP(self, ctx):
 		msg = f"{ctx.message.author.name} a dit " + str(ctx.message.content)
 		Log.infoLog(msg)
